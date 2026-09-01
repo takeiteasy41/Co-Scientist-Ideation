@@ -1,0 +1,97 @@
+[
+  {
+    "id": "explicit_skill",
+    "prompt": "$co-scientist-ideation 围绕一个新科学问题提出可验证的新假设",
+    "activate": true
+  },
+  {
+    "id": "bare_skill_token",
+    "prompt": "$co-scientist-ideation",
+    "activate": false
+  },
+  {
+    "id": "negated_skill",
+    "prompt": "不要使用 $co-scientist-ideation，只讨论普通研究方向",
+    "activate": false
+  },
+  {
+    "id": "negated_chinese_mode",
+    "prompt": "不要启用多智能体科研构思，只写代码",
+    "activate": false
+  },
+  {
+    "id": "chinese_mode_without_goal",
+    "prompt": "开启多智能体科研构思，但只解释这个术语",
+    "activate": false
+  },
+  {
+    "id": "chinese_mode_bare_activation",
+    "prompt": "开启多智能体科研构思，先运行一下",
+    "activate": false
+  },
+  {
+    "id": "chinese_mode_late_negation",
+    "prompt": "开启多智能体科研构思，但不要进行研究，只写代码",
+    "activate": false
+  },
+  {
+    "id": "quoted_chinese_mode",
+    "prompt": "请解释“多智能体科研构思”这个词，不要运行任何科研流程",
+    "activate": false
+  },
+  {
+    "id": "quoted_chinese_mode_with_research_context",
+    "prompt": "请解释“多智能体科研构思”在研究方向中的含义，不要启动角色协作",
+    "activate": false
+  },
+  {
+    "id": "named_system",
+    "prompt": "请像 Co-Scientist 一样用多个科研角色提出并筛选计算科学假设",
+    "activate": true
+  },
+  {
+    "id": "chinese_mode",
+    "prompt": "开启多智能体科研构思，围绕 agent 评测设计研究方向",
+    "activate": true
+  },
+  {
+    "id": "research_partner",
+    "prompt": "请作为我的科研搭档想点子，围绕因果发现的稳健性用多个科研角色辩论筛选研究假设",
+    "activate": true
+  },
+  {
+    "id": "generic_subagents_code",
+    "prompt": "Use three subagents to implement and test this React feature.",
+    "activate": false
+  },
+  {
+    "id": "pr_review",
+    "prompt": "Spawn multiple agents to review this pull request for bugs.",
+    "activate": false
+  },
+  {
+    "id": "parallel_debug",
+    "prompt": "用 subagent 并行调试训练脚本为什么 OOM。",
+    "activate": false
+  },
+  {
+    "id": "paper_summary",
+    "prompt": "总结这篇 Co-Scientist 论文的主要贡献。",
+    "activate": false
+  },
+  {
+    "id": "plain_brainstorm",
+    "prompt": "开放式帮我想几个研究选题。",
+    "activate": false
+  },
+  {
+    "id": "observation_hypothesis",
+    "prompt": "总体指标上升但一个子组下降，请根据结果提出假设。",
+    "activate": false
+  },
+  {
+    "id": "experiment_plan",
+    "prompt": "请冻结这个方法的 baseline、split、seed 和显著性方案。",
+    "activate": false
+  }
+]

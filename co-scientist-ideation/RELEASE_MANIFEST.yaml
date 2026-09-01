@@ -1,0 +1,61 @@
+release_manifest_schema: co-scientist-ideation-release-1
+skill_name: co-scientist-ideation
+version: 1.9-rc1
+status: RELEASE_CANDIDATE
+date: 2026-09-01
+
+parent:
+  parent_version: 1.8-rc1
+  modified_in_place: false
+
+changed_leaf_classes_from_1_8:
+  - RELEASE_MANIFEST.yaml
+  - SKILL.md
+  - references/roles.md
+  - references/workflow.md
+  - scripts/validate_skill.py
+  - tests/behavior_contract_cases.json
+  - tests/test_scripts.py
+
+unchanged_leaf_classes_from_1_8:
+  - agents/openai.yaml
+  - references/contracts.md
+  - references/localization.md
+  - references/paper-basis.md
+  - references/safety.md
+  - tests/trigger_cases.json
+
+payload:
+  canonical_algorithm: ordinal forward-slash path<TAB>bytes<TAB>sha256<LF>
+  excludes: [RELEASE_MANIFEST.yaml]
+  files: 12
+  bytes: 99625
+  canonical_tree_sha256: 2c3bfec716fa41a927aedb7cc771f2cc056c89318458237e7d647763f0aa4649
+
+invocation:
+  allow_implicit_invocation: false
+  explicit_name: $co-scientist-ideation
+
+retrieval:
+  network_policy: RUN_SCOPED_AUTHORIZED_RETRIEVAL
+  authoritative_source_opening_required_for_claim_use: true
+  search_snippets_are_evidence: false
+  unpublished_details_require_privacy_review_before_querying: true
+
+validation:
+  inherited_and_regression_tests: PASS_16_OF_16
+  structural_validator: PASS_13_FILES_ZERO_ERRORS_WARNINGS
+  official_quick_validate: PASS
+  bounded_forward_behavior: PASS_ACCEPTED_NO_FINALIST
+  forward_scope: ONE_WEB_AUTHORIZED_NONCOMPUTATIONAL_BIOLOGY_TASK
+  public_privacy_scan: PASS
+
+claim_boundary:
+  validation_scope: LOCAL_RELEASE_CANDIDATE_USAGE
+  evaluation_scope: AI_ONLY_EXPLORATORY
+  claims: NO_GENERIC_SUPERIORITY_SCIENTIFIC_TRUTH_HUMAN_PREFERENCE_OR_DEPLOYMENT_ROI
+
+release_note: >-
+  Narrow sibling-version refinement with run-scoped authoritative retrieval and domain-neutral
+  multi-component discrimination. The six-block workflow, candidate and subagent bounds,
+  independent review, human-selection boundary, and separate execution authorization remain intact.

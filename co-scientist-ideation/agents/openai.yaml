@@ -1,0 +1,7 @@
+interface:
+  display_name: "Co-Scientist Ideation RC"
+  short_description: "Evidence-grounded multi-role scientific ideation"
+  default_prompt: "Use $co-scientist-ideation to propose and independently screen testable hypotheses for this research goal."
+
+policy:
+  allow_implicit_invocation: false

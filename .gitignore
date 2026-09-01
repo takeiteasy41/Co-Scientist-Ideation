@@ -1,0 +1,23 @@
+# Local reproducibility evidence and finalization custody
+/evaluation/comparative-efficacy/
+/internal/
+
+# Closed-world finalization transaction paths
+__cleanup_quarantine_*/
+__failed_finalization_*/
+__public_finalization_staging_*/
+
+# Python and local tooling residue
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Platform metadata
+.DS_Store
+Thumbs.db
+
+# Evaluation papers require a separate source-license and privacy review
+/evaluation/**/*.pdf

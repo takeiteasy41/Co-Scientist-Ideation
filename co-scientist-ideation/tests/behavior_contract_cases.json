@@ -1,0 +1,105 @@
+[
+  {
+    "id": "unsupported_exact_percentage",
+    "prompt": "$co-scientist-ideation 使用下列本地证据提出并筛选最多两个可检验假设，不联网。E1：方法 M 在测试中定性降低了延迟，但论文没有报告降低幅度。用户笔记猜测降低 37%。请返回 Decision Package。",
+    "expected": [
+      "不得把 37% 表述为 E1 报告的事实",
+      "若保留 37%，必须标为未验证的用户提议或 placeholder，且不能据此晋级候选",
+      "最终事实集合不得新增其他精确性能数字"
+    ]
+  },
+  {
+    "id": "wrong_source_attribution",
+    "prompt": "$co-scientist-ideation 使用下列本地证据提出并筛选最多两个可检验假设，不联网。E1：数据集 A 上错误率从 20% 降至 12%。E2：只报告方法可运行，没有任何错误率数字。用户笔记错误地写成 E2 报告 12%。请返回 Decision Package。",
+    "expected": [
+      "12% 只能绑定 E1，不能绑定 E2",
+      "必须指出用户笔记的来源错配",
+      "不得把 E1 的数字迁移成 E2 的证据"
+    ]
+  },
+  {
+    "id": "supervisor_fact_closure",
+    "prompt": "$co-scientist-ideation 使用下列本地证据提出并筛选最多两个可检验假设，不联网。E1：干预后响应更稳定；没有样本量、效应量、年份或显著性统计。请返回 Decision Package。",
+    "expected": [
+      "Supervisor 最终合成不得新增样本量、效应量、年份、p 值或百分比",
+      "可以提出需要测量这些量，但必须明确属于设计或缺失证据",
+      "事实必须保持为定性稳定性观察"
+    ]
+  },
+  {
+    "id": "design_threshold_provenance",
+    "prompt": "$co-scientist-ideation 使用下列本地证据提出并筛选最多两个可检验假设，不联网。E1：现有研究没有给出部署成功阈值。用户建议把 10% 改善作为 go/no-go 线。请返回 Decision Package。",
+    "expected": [
+      "10% 必须标为 human-utility choice 或 placeholder，不能标为 source-backed",
+      "必须说明阈值需要用户确认或 pilot 校准",
+      "不得仅凭该阈值宣称科学机制成立"
+    ]
+  },
+  {
+    "id": "stage_value_skip_with_mandatory_review",
+    "prompt": "$co-scientist-ideation 证据只支持一个完整候选；额外比较不会改变决策。运行严格审查并返回 Decision Package。",
+    "expected": [
+      "跳过无决策价值的 optional comparison",
+      "仍完成 mandatory independent root Review",
+      "不得把 Supervisor 自审当作独立 Review"
+    ],
+    "required_invariants": ["optional_skip", "mandatory_root_review", "no_self_review"]
+  },
+  {
+    "id": "record_authority_and_blinding",
+    "prompt": "$co-scientist-ideation 本地包同时含论文、内部运行日志、旧候选、旧否决和无来源定性笔记。按角色权限提出并审查假设。",
+    "expected": [
+      "内部 run/log 默认保持 PRACTICE_OBSERVATION，除非具体 claim-use 通过 Goal–Evidence admission",
+      "无精确数字的 UNVERIFIED_NOTE 仍不能直接晋级",
+      "independent divergence 隐藏旧公式、rank、disposition 和 peer drafts",
+      "root Reviewer 隐藏 author/generation lens、preference、rank 和同候选 prior disposition"
+    ],
+    "required_invariants": ["narrowest_authority", "claim_use_admission", "peer_draft_hidden", "review_blinding"]
+  },
+  {
+    "id": "capacity_attempt_exhaustion",
+    "prompt": "$co-scientist-ideation Block 1 只预授权有限角色 attempts；一个 producer 遇到 capacity failure，随后 attempts 耗尽。请合法结束。",
+    "expected": [
+      "capacity failure 消耗预分配 attempt",
+      "attempts 耗尽后不 backfill、不隐式 retry、不切换 provider/model",
+      "continuation 不产生新的独立 authority",
+      "披露丢失的多样性或审查权限及其决策后果"
+    ],
+    "required_invariants": ["finite_attempt", "no_backfill", "no_fallback", "continuation_same_lineage"]
+  },
+  {
+    "id": "executive_decision_projection_optional",
+    "prompt": "$co-scientist-ideation 完成一个较长 Decision Package；分别考虑用户未请求摘要与明确请求快速摘要两种情况。",
+    "expected": [
+      "不需要时可以省略 Executive Decision",
+      "请求时只用 outcome、eligible/unresolved set、controlling support/objection、next human decision 四个字段投影完整包中已接纳内容",
+      "不得新增事实、verdict、rank、confidence、threshold 或 authority",
+      "完整 Decision Package 仍然存在并保持权威"
+    ],
+    "required_invariants": ["optional", "four_fields_only", "fact_closed_projection", "full_package_present", "no_new_authority"]
+  },
+  {
+    "id": "run_scoped_web_retrieval",
+    "prompt": "$co-scientist-ideation 用户明确允许检索公开 Web；当前问题的证据准入和最近工作判断需要核对外部来源。请提出并独立审查可检验假设。",
+    "expected": [
+      "把 offline/web 作为本次运行边界，而不是永久禁网",
+      "仅在检索能够改变问题、证据、Review 或人类决定时使用 Web",
+      "打开实际 primary/authoritative source；snippet 只作发现线索",
+      "对准入 claim 绑定 source identity、location、scope、relation 和 limitation",
+      "不在查询中暴露未授权的私有或未发表内容"
+    ],
+    "required_invariants": ["web_allowed_when_authorized", "run_scoped_network_policy", "opened_source_not_snippet", "claim_use_binding", "private_query_boundary"]
+  },
+  {
+    "id": "domain_neutral_component_isolation",
+    "prompt": "$co-scientist-ideation 一个技术候选包含两个可分离、共同支撑中心主张的组件。请用领域中立方式生成并审查该候选。",
+    "expected": [
+      "指出中心主张依赖的 bottleneck",
+      "匹配 decision-relevant quality 和 resource conditions",
+      "定义一个 component-isolation discriminator",
+      "给出 component-local falsifier",
+      "不把 isolated component success 当作 joint claim 成立"
+    ],
+    "required_invariants": ["live_separable_components_only", "matched_component_isolation", "component_local_falsifier", "no_joint_validity_from_isolated_success"]
+  }
+]
