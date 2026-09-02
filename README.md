@@ -212,8 +212,7 @@ capability envelope, and known weaknesses for developer review.
 
 The retained Generic prompts declared and restricted the research capability envelope to:
 
-- research-ideation — no authoritative upstream GitHub source was confirmed for the exact local Skill,
-  so no download link is provided;
+- research-ideation;
 - [hypothesis-generation](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/hypothesis-generation);
 - [scientific-brainstorming](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/scientific-brainstorming);
 - [literature-review](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/literature-review); and
