@@ -27,8 +27,10 @@ leaf as `path<TAB>bytes<TAB>sha256<LF>`, followed by SHA-256 of those canonical 
   read-only. It is not a complete model-experiment rerun package.
 - `internal/` contains Git-ignored custody, audit, deployment, and cleanup receipts.
 
+The repository owner's original public contents are licensed under Apache License 2.0. Linked
+third-party sources and ignored evaluation papers remain under their own terms and are not relicensed.
 Do not publish ignored evaluation papers or internal receipts without a separate source-license,
-privacy, and provenance audit. The repository has no selected license until the owner adds one.
+privacy, and provenance audit.
 
 ## Change discipline
 
@@ -51,7 +53,7 @@ primary or authoritative sources and privacy-safe queries. Do not encode one sci
 examples as universal defaults.
 
 Historical efficacy work is frozen. Recomputing the retained endpoint is allowed for integrity checks;
-new model requests, selective reruns, human-panel claims, publication, license selection, or a new
+new model requests, selective reruns, human-panel claims, publication, license changes, or a new
 evaluation design require separate owner authorization.
 
 ## Verification

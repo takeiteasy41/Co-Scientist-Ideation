@@ -1,8 +1,9 @@
 # Current State
 
-Date: `2026-09-01`  
+Date: `2026-09-02`  
 Release: `co-scientist-ideation 1.9-rc1`  
-Status: validated public release candidate
+Status: validated public release candidate  
+Repository license: `Apache-2.0`
 
 This document describes portable release facts. Per-machine installation and discovery results belong
 in Git-ignored local receipts rather than public source files.
@@ -94,7 +95,8 @@ or model-execution dependency needed to rerun the full study or re-audit all ups
   Co-Scientist source-misuse failure.
 - No human preference, confirmatory efficacy, scientific truth, or deployment ROI claim is licensed.
 - The ignored paper corpus needs a separate source-license and privacy audit before publication.
-- No repository license has been selected.
+- Repository-owned public contents are licensed under `Apache-2.0`; linked third-party materials and
+  the ignored paper corpus remain outside that grant.
 
 ## Next legitimate maintenance action
 

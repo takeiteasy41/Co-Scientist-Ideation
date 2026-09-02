@@ -128,5 +128,5 @@ an interruption may resume only against its exact manifest.
 
 Record the final package/payload/public-tree/project receipts, audit response hashes, validation
 commands, installed target class, smoke outcome, retained evaluation receipt and removed categories.
-Then stop. Further optimization, new evaluation requests, license selection, Git publication or a new
+Then stop. Further optimization, new evaluation requests, license changes, Git publication or a new
 scientific experiment is a separate decision.
