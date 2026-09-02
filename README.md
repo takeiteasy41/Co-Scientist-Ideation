@@ -40,13 +40,23 @@
 
 ## 安装
 
-克隆仓库，并复制完整的 `co-scientist-ideation/` 目录：
+克隆仓库，并将完整的 `co-scientist-ideation/` 目录复制到 Skill 根目录。macOS / Linux：
 
-    git clone https://github.com/takeiteasy41/Co-Scientist-Ideation.git
-    mkdir -p "$HOME/.agents/skills"
-    cp -R Co-Scientist-Ideation/co-scientist-ideation "$HOME/.agents/skills/"
+```bash
+git clone https://github.com/takeiteasy41/Co-Scientist-Ideation.git
+mkdir -p "$HOME/.agents/skills"
+cp -R Co-Scientist-Ideation/co-scientist-ideation "$HOME/.agents/skills/"
+```
 
-也可以将完整目录复制到项目级的 `<project>/.agents/skills/`。目录约定与 Skill 构建说明见 OpenAI 官方的 [Build skills](https://learn.chatgpt.com/docs/build-skills)。
+Windows PowerShell：
+
+```powershell
+git clone https://github.com/takeiteasy41/Co-Scientist-Ideation.git
+New-Item -ItemType Directory -Force "$HOME\.agents\skills" | Out-Null
+Copy-Item -Recurse ".\Co-Scientist-Ideation\co-scientist-ideation" "$HOME\.agents\skills\co-scientist-ideation"
+```
+
+如果目标位置已有同名 Skill，请先确认或备份现有目录，避免把两个版本合并。也可以将完整目录复制到项目级的 `<project>/.agents/skills/`。目录约定与 Skill 构建说明见 OpenAI 官方的 [Build skills](https://learn.chatgpt.com/docs/build-skills)。
 
 ## 使用
 
@@ -97,6 +107,28 @@ Skill 在当前 Codex task 内运行，并止于人类 Decision Package。代码
 - [`references/paper-basis.md`](co-scientist-ideation/references/paper-basis.md)：论文依据与 bounded adaptation。
 - `scripts/`：package 校验脚本。
 - `tests/`：行为与结构检查。
+
+## 测试与评估
+
+我们进行了一组 AI-only、固定任务的探索性配对评估，用于观察本 Skill 在受控条件下的表现。评估包含 4 个任务：2 个系统或形式化任务，以及 2 个非系统任务。每个任务向两个生成臂提供同一组 5 篇更早、已核验的论文，共 20 篇可见论文；每个任务另有 1 篇后发表的隐藏参考论文，共 4 篇，这些论文的身份和内容均不提供给生成臂或主要 reviewer。隐藏参考只在评审锁定后用于非投票式的机制族对照，不参与主要偏好投票。
+
+两个生成臂分别为 Co-Scientist 和高质量 Generic prompt。每个任务运行 3 组配对生成，共得到 12 对匿名输出；每对由 3 个 AI reviewer 判断，共 36 个 reviewer decisions。分析以任务为主要单位，4 个任务等权；reviewer decisions 嵌套在 pair 和 task 内，不能当作 36 个独立科学样本。
+
+| 描述性指标 | 结果 |
+|---|---:|
+| 倾向 Co-Scientist 的 reviewer directions | `31/36` |
+| 倾向 Co-Scientist 的 pair majorities | `11/12` |
+| Task-equalized score | `0.861111` |
+| Co-Scientist canonical critical failures | `1` |
+| Generic canonical critical failures | `0` |
+| Co/Generic generation-request ratio | 约 `3.83×` |
+| Co/Generic 平均父任务 wall-time ratio | 约 `1.99×` |
+
+方向性数字整体倾向 Co-Scientist，但结果并不是无条件胜出：一个 Co-Scientist 输出包含实质性的来源使用错误，一个 pair 的多数判断倾向 Generic，因此预先规定的“不出现更多 critical failure”门槛没有通过。最终结果属于 heterogeneous trade-off：在这组任务上观察到更高的匿名评审偏好信号，同时付出了更多调用与时间成本。
+
+这些数字来自冻结记录的恢复性复算，不是一次独立复现。隐藏参考论文只代表一种后来实际发表的机制，用于衡量重构或对齐；它不是科学真理、唯一正确答案，也不能证明 de-novo discovery。成本比例是本地记录的描述，不是因果效率或投入产出估计。该评估仅供参考，不支持普遍优越性、人类偏好、确认性有效性、科学真实性、真正新颖性、跨领域泛化或部署 ROI。
+
+方法学背景包括：[MOOSE-Chem](https://arxiv.org/abs/2410.07076) 的后发表论文假设重构范式、[Smit 等对多智能体辩论与强提示基线的比较](https://proceedings.mlr.press/v235/smit24a.html)，以及 [Si、Yang 和 Hashimoto 的领域研究者盲评设计](https://proceedings.iclr.cc/paper_files/paper/2025/hash/ea94957d81b1c1caf87ef5319fa6b467-Abstract-Conference.html)。这些研究用于界定评估方法，不构成对本 Skill 效果的外部验证。
 
 ## 科学依据与官方资料
 
