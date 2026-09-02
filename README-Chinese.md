@@ -164,7 +164,7 @@ Reviewer 判断嵌套在 pair 和 task 中，不是 36 个独立科学重复。�
 
 保留的 Generic prompts 声明并限制了以下研究能力：
 
-- research-ideation：没有确认该本地 Skill 的权威上游 GitHub 地址，因此不提供下载链接；
+- research-ideation；
 - [hypothesis-generation](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/hypothesis-generation)；
 - [scientific-brainstorming](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/scientific-brainstorming)；
 - [literature-review](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/literature-review)；
