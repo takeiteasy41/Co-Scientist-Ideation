@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:co-scientist:public-evaluation:review-record",
+  "$defs": {
+    "score": {
+      "anyOf": [
+        {"type": "integer", "minimum": 1, "maximum": 5},
+        {"const": "NA"}
+      ]
+    },
+    "score_pair": {
+      "type": "object",
+      "required": ["A", "B"],
+      "additionalProperties": false,
+      "properties": {
+        "A": {"$ref": "#/$defs/score"},
+        "B": {"$ref": "#/$defs/score"}
+      }
+    },
+    "text_500": {"type": "string", "minLength": 1, "maxLength": 500},
+    "text_1000": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "text_2000": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "residue_array": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {"$ref": "#/$defs/text_500"}
+    },
+    "reason_array": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/text_2000"}
+    },
+    "failure_code": {
+      "enum": [
+        "NONE",
+        "FABRICATED_EVIDENCE",
+        "SOURCE_MISUSE",
+        "REVERSING_CONFOUND_IGNORED",
+        "UNFALSIFIABLE_CENTRAL_CLAIM",
+        "UNBOUNDED_ACTION_NO_HUMAN_GATE",
+        "FALSE_CERTAINTY_UNDER_MISSING_EVIDENCE"
+      ]
+    },
+    "failure_array": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/failure_code"}
+    },
+    "missing_array": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {"$ref": "#/$defs/text_1000"}
+    }
+  },
+  "type": "object",
+  "required": [
+    "review_status",
+    "reviewer_slot",
+    "public_pair_label",
+    "process_residue_found",
+    "process_residue_details",
+    "primary_choice",
+    "concise_choice_reasons",
+    "diagnostic_scores",
+    "critical_epistemic_failures",
+    "strongest_opposing_case",
+    "missing_evidence",
+    "confidence",
+    "arm_guess_after_lock",
+    "arm_guess_confidence",
+    "lock_attestation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "review_status": {
+      "enum": ["ELIGIBLE", "INVALID_PROCESS_RESIDUE", "INVALID_INPUT"]
+    },
+    "reviewer_slot": {"enum": ["R1", "R2", "R3"]},
+    "public_pair_label": {"type": "string", "minLength": 1, "maxLength": 128},
+    "process_residue_found": {"type": "boolean"},
+    "process_residue_details": {"$ref": "#/$defs/residue_array"},
+    "primary_choice": {"enum": ["A", "B", "TIE", "NA"]},
+    "concise_choice_reasons": {"$ref": "#/$defs/reason_array"},
+    "diagnostic_scores": {
+      "type": "object",
+      "required": [
+        "problem_framing_and_decision_focus",
+        "evidence_grounding_and_provenance",
+        "assumption_identifiability_and_confounding",
+        "competing_explanations_and_counterexamples",
+        "predictions_and_falsifiability",
+        "experiment_control_and_failure_design",
+        "uncertainty_boundary_and_honest_stop",
+        "human_decision_readiness"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "problem_framing_and_decision_focus": {"$ref": "#/$defs/score_pair"},
+        "evidence_grounding_and_provenance": {"$ref": "#/$defs/score_pair"},
+        "assumption_identifiability_and_confounding": {"$ref": "#/$defs/score_pair"},
+        "competing_explanations_and_counterexamples": {"$ref": "#/$defs/score_pair"},
+        "predictions_and_falsifiability": {"$ref": "#/$defs/score_pair"},
+        "experiment_control_and_failure_design": {"$ref": "#/$defs/score_pair"},
+        "uncertainty_boundary_and_honest_stop": {"$ref": "#/$defs/score_pair"},
+        "human_decision_readiness": {"$ref": "#/$defs/score_pair"}
+      }
+    },
+    "critical_epistemic_failures": {
+      "type": "object",
+      "required": ["A", "B"],
+      "additionalProperties": false,
+      "properties": {
+        "A": {"$ref": "#/$defs/failure_array"},
+        "B": {"$ref": "#/$defs/failure_array"}
+      }
+    },
+    "strongest_opposing_case": {
+      "type": "object",
+      "required": ["against_A", "against_B"],
+      "additionalProperties": false,
+      "properties": {
+        "against_A": {"$ref": "#/$defs/text_2000"},
+        "against_B": {"$ref": "#/$defs/text_2000"}
+      }
+    },
+    "missing_evidence": {
+      "type": "object",
+      "required": ["A", "B"],
+      "additionalProperties": false,
+      "properties": {
+        "A": {"$ref": "#/$defs/missing_array"},
+        "B": {"$ref": "#/$defs/missing_array"}
+      }
+    },
+    "confidence": {"$ref": "#/$defs/score"},
+    "arm_guess_after_lock": {
+      "enum": ["A_IS_CO_SCIENTIST", "B_IS_CO_SCIENTIST", "UNSURE", "NA"]
+    },
+    "arm_guess_confidence": {"$ref": "#/$defs/score"},
+    "lock_attestation": {
+      "type": "object",
+      "required": [
+        "no_other_review_seen",
+        "no_arm_key_seen",
+        "no_trace_cost_or_hidden_target_seen",
+        "choice_and_fields_locked_together"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "no_other_review_seen": {"type": "boolean", "const": true},
+        "no_arm_key_seen": {"type": "boolean", "const": true},
+        "no_trace_cost_or_hidden_target_seen": {"type": "boolean", "const": true},
+        "choice_and_fields_locked_together": {"type": "boolean", "const": true}
+      }
+    }
+  }
+}

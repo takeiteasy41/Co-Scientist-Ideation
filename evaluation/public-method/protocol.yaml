@@ -1,0 +1,216 @@
+schema_version: 1
+record_type: public_evaluation_method
+status: DOCUMENTED_CURRENT_METHOD
+documentation_only: true
+run_authority: false
+model_request_authority: false
+experiment_run_authority: false
+
+purpose: >-
+  Compare decision usefulness, evidence discipline, falsifiability, honest stopping, and resource
+  trade-offs of a structured scientific-ideation workflow under a bounded evidence envelope.
+
+current_completed_panel:
+  status: COMPLETED_AI_ONLY_EXPLORATORY
+  fixed_tasks: 4
+  task_strata:
+    systems_or_formal: 2
+    non_systems: 2
+  visible_predecessor_papers_per_task: 5
+  visible_predecessor_papers_total: 20
+  hidden_reference_mechanisms_per_task: 1
+  hidden_reference_mechanisms_total: 4
+  generation_arms:
+    - Co-Scientist
+    - Generic
+  paired_generations_per_task: 3
+  anonymous_pairs: 12
+  eligible_ai_reviewers_per_pair: 3
+  effective_ai_reviewer_decisions: 36
+  primary_analysis_unit: task
+  task_weighting: equal
+  reviewer_decisions_are_independent_replicates: false
+  hidden_reference_comparison:
+    timing: after_review_lock
+    voting: non_voting
+    role: mechanism_family_reconstruction_alignment
+    ground_truth: false
+  endpoint:
+    co_scientist_direction_votes: 31
+    generic_direction_votes: 5
+    co_scientist_pair_majorities: 11
+    generic_pair_majorities: 1
+    task_equalized_score: 0.861111
+    co_scientist_canonical_critical_failures: 1
+    generic_canonical_critical_failures: 0
+    no_worse_critical_failure_gate: FAIL
+  cost:
+    generation_request_ratio_co_over_generic: 3.833333
+    mean_parent_wall_time_ratio_co_over_generic: 1.992849
+    interpretation: descriptive_non_causal_no_roi
+
+generic_capability_envelope:
+  status: declared_allowed_envelope
+  allowed_research_skills:
+    - research-ideation
+    - hypothesis-generation
+    - scientific-brainstorming
+    - literature-review
+  shared_read_only_capability: pdf
+  network: disabled_for_retained_comparison
+  project_writes: forbidden
+  collaboration_or_subagents: forbidden
+  held_co_scientist_capability_inspection: forbidden
+  per_request_skill_invocation_recorded: false
+  disclosure_semantics: declared_allowed_envelope_not_proof_of_each_invocation
+  source_status:
+    research-ideation:
+      status: upstream_source_unconfirmed
+      url: null
+    hypothesis-generation:
+      status: confirmed
+      url: https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/hypothesis-generation
+    scientific-brainstorming:
+      status: confirmed
+      url: https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/scientific-brainstorming
+    literature-review:
+      status: confirmed
+      url: https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/literature-review
+    pdf:
+      status: host_bundled_source_not_published
+      url: null
+
+claim_contract:
+  - id: decision_usefulness
+    evidence_tier: exploratory
+    primary_observable: task_level_anonymous_preference_and_decision_readiness
+    falsifier: no_decision_change_or_no_actionable_discriminator
+  - id: evidence_grounding
+    evidence_tier: exploratory_guardrail
+    primary_observable: source_use_and_provenance_review
+    falsifier: source_misuse_or_fabricated_evidence
+  - id: mechanism_distinction
+    evidence_tier: exploratory
+    primary_observable: distinct_mechanisms_and_predictions
+    falsifier: synonym_candidates_or_shared_decisive_prediction
+  - id: honest_stopping
+    evidence_tier: guardrail
+    primary_observable: correct_no_finalist_or_insufficient_evidence_outcome
+    falsifier: forced_finalist_or_memory_filled_gap
+  - id: human_decision_readiness
+    evidence_tier: future_human_endpoint
+    primary_observable: blinded_qualified_expert_rating
+    falsifier: experts_cannot_identify_a_bounded_next_step
+  - id: resource_tradeoff
+    evidence_tier: descriptive
+    primary_observable: actual_requests_time_tokens_and_review_minutes
+    falsifier: planned_loop_counts_used_as_cost
+
+metric_layers:
+  primary_current:
+    name: task_equalized_paired_preference
+    choice_mapping:
+      co_scientist: 1
+      generic: 0
+      tie: 0.5
+    aggregation: reviewer_within_pair_then_pair_within_task_then_equal_tasks
+  guardrails:
+    - FABRICATED_EVIDENCE
+    - SOURCE_MISUSE
+    - REVERSING_CONFOUND_IGNORED
+    - UNFALSIFIABLE_CENTRAL_CLAIM
+    - UNBOUNDED_ACTION_NO_HUMAN_GATE
+    - FALSE_CERTAINTY_UNDER_MISSING_EVIDENCE
+    - correct_no_finalist
+    - insufficient_evidence
+  diagnostics:
+    - problem_framing_and_decision_focus
+    - evidence_grounding_and_provenance
+    - assumption_identifiability_and_confounding
+    - competing_explanations_and_counterexamples
+    - predictions_and_falsifiability
+    - experiment_control_and_failure_design
+    - uncertainty_boundary_and_honest_stop
+    - human_decision_readiness
+  reference_alignment:
+    voting: false
+    truth_claim: false
+    novelty_claim: false
+  resource_metrics:
+    - model_tool_api_requests
+    - tokens_when_available
+    - retries
+    - cache_hits
+    - wall_time
+    - output_length
+    - human_review_minutes
+    - valid_candidate_count
+    - no_finalist_count
+    - source_use_failures
+
+aggregation:
+  primary_unit: task
+  reviewer_votes_nested_within: pair
+  pairs_nested_within: task
+  task_weighting: equal
+  reviewer_votes_are_independent_scientific_replicates: false
+  reviewer_level_significance_claim: forbidden
+  future_uncertainty_plan: freeze_before_claimable_run
+
+fairness_controls:
+  common_model_revision_decoding_context_and_evidence: required_for_future_claims
+  strong_generic_baseline: required
+  structured_single_agent_arm: proposed
+  matched_request_budget_view: proposed
+  natural_process_budget_view: proposed
+  anonymous_arm_labels: required
+  display_order_balance: required
+  target_withheld_until_review_lock: required
+  qualified_human_blind_review_for_open_ended_tasks: proposed
+  actual_request_cost_accounting: required
+
+paper_selection_and_reference_role:
+  discovery_sources: authoritative_scholarly_records
+  visible_packet: earlier_sources_without_target_answer_material
+  target_role: historical_reference_mechanism
+  target_is_ground_truth: false
+  active_target_identity_public: false
+  exact_private_queries_public: false
+  target_retirement_required_before_metadata_disclosure: true
+  third_party_pdf_redistribution: forbidden_without_license_audit
+
+known_limitations:
+  - AI_only_fixed_task_panel
+  - nested_reviewer_observations
+  - shared_model_family_may_weaken_independence
+  - hidden_reference_alignment_is_not_novelty_or_truth
+  - no_human_preference_endpoint
+  - role_separation_causal_effect_not_identified
+  - cost_is_descriptive_not_roi
+  - generic_per_request_skill_invocation_not_recorded
+  - retained_closure_is_not_a_complete_model_rerun_package
+  - public_paper_pretraining_exposure_unprovable
+
+public_files:
+  - evaluation/public-method/README.md
+  - evaluation/public-method/PROTOCOL.md
+  - evaluation/public-method/protocol.yaml
+  - evaluation/public-method/review_record.schema.json
+  - evaluation/public-method/validate_review_record.py
+  - evaluation/public-method/quality_cost_summary.py
+  - evaluation/public-method/examples/review_record.json
+  - evaluation/public-method/tests/test_public_evaluation.py
+
+source_links:
+  - name: Smit et al. multi-agent debate comparison
+    url: https://proceedings.mlr.press/v235/smit24a.html
+    use: justify_strong_simpler_baselines
+  - name: MOOSE-Chem
+    url: https://arxiv.org/abs/2410.07076
+    use: known_target_hypothesis_reconstruction_precedent
+  - name: Si et al. human research-idea study
+    url: https://proceedings.iclr.cc/paper_files/paper/2025/hash/ea94957d81b1c1caf87ef5319fa6b467-Abstract-Conference.html
+    use: blind_human_review_and_novelty_feasibility_separation
+  - name: Gottweis et al. Co-Scientist
+    url: https://www.nature.com/articles/s41586-026-10644-y
+    use: source_system_context_and_limitations

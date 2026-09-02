@@ -1,0 +1,42 @@
+{
+  "review_status": "ELIGIBLE",
+  "reviewer_slot": "R1",
+  "public_pair_label": "SYNTHETIC-PAIR-001",
+  "process_residue_found": false,
+  "process_residue_details": ["NONE"],
+  "primary_choice": "A",
+  "concise_choice_reasons": [
+    "Package A states a clearer discriminator and binds its factual claims to the supplied evidence."
+  ],
+  "diagnostic_scores": {
+    "problem_framing_and_decision_focus": {"A": 4, "B": 3},
+    "evidence_grounding_and_provenance": {"A": 4, "B": 3},
+    "assumption_identifiability_and_confounding": {"A": 3, "B": 3},
+    "competing_explanations_and_counterexamples": {"A": 4, "B": 3},
+    "predictions_and_falsifiability": {"A": 4, "B": 3},
+    "experiment_control_and_failure_design": {"A": 3, "B": 3},
+    "uncertainty_boundary_and_honest_stop": {"A": 4, "B": 3},
+    "human_decision_readiness": {"A": 4, "B": 3}
+  },
+  "critical_epistemic_failures": {
+    "A": ["NONE"],
+    "B": ["NONE"]
+  },
+  "strongest_opposing_case": {
+    "against_A": "Package B may be preferable if its simpler discriminator is more feasible.",
+    "against_B": "Package A may be preferable if the missing evidence is the deciding constraint."
+  },
+  "missing_evidence": {
+    "A": ["NONE"],
+    "B": ["NONE"]
+  },
+  "confidence": 3,
+  "arm_guess_after_lock": "UNSURE",
+  "arm_guess_confidence": 1,
+  "lock_attestation": {
+    "no_other_review_seen": true,
+    "no_arm_key_seen": true,
+    "no_trace_cost_or_hidden_target_seen": true,
+    "choice_and_fields_locked_together": true
+  }
+}

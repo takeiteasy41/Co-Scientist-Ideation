@@ -1,7 +1,11 @@
 # Local project working materials
 /AGENTS.md
 /docs/
-/evaluation/
+/evaluation/*
+!/evaluation/public-method/
+!/evaluation/public-method/**
+/evaluation/public-method/**/*.pdf
+/evaluation/public-method/*.pdf
 /internal/
 
 # Python and local tooling residue

@@ -1,46 +1,74 @@
 # Co-Scientist Ideation
 
-一个需要显式调用的 Codex Skill：把科研构思组织为有边界、证据可追溯、角色分离的六阶段过程，最终交付由研究者选择的 **Decision Package**。
+An explicit Codex Skill for turning an open research direction, observation, or contradiction into a
+bounded and evidence-grounded decision package. It keeps mechanisms, evidence, criticism,
+uncertainty, and the researcher’s final choice visibly separate.
 
-## 适合什么任务
+[Chinese documentation](README-Chinese.md)
 
-当你已有研究方向、观察、异常或问题线索，希望从“值得研究吗”推进到“下一步该判别什么”时，可以使用本 Skill。它尤其适合：
+## What it is for
 
-- 从证据、矛盾和未知中建立清晰的问题地图；
-- 生成机制上真正不同、可证伪的候选假设；
-- 让候选接受与作者分离的批评和深度核查；
-- 用关键反对意见推动实质修订，而不是润色表述；
-- 在投入实验、代码或数据采集前，形成可比较、可追踪的科学决策对象。
+Use this Skill when you already have a research direction, observation, anomaly, or question and need
+to decide what is most worth distinguishing next. It is useful for:
 
-它采用显式调用：在 Codex task 中输入 `$co-scientist-ideation` 并给出科研构思目标后才开始运行。
+- mapping a question, evidence, contradictions, constraints, privacy boundaries, and stopping rules;
+- generating a small set of mechanistically distinct and falsifiable hypotheses;
+- checking evidence bindings, nearby work, alternative explanations, confounders, and failure modes;
+- turning one specific killer objection into a substantive scientific revision;
+- proposing the lowest-cost discriminator before code, training, experiments, or data collection; and
+- preparing a comparable Decision Package for a researcher to select.
 
-## 六阶段流程
+It is not a general chatbot, a literature-search replacement, an autonomous laboratory, or a guarantee
+of novelty, correctness, or publication.
 
-`Goal + Evidence Map → Multi-strategy Generation → Independent Review → conditional Comparison → Evolution + fresh review → Decision Package + Human Selection`
+## Six-stage workflow
 
-| 阶段 | 核心工作 | 主要产物 |
+    Goal + Evidence Map
+      → Multi-strategy Generation
+      → Independent Review
+      → Conditional Comparison
+      → Objection-driven Evolution + fresh review
+      → Decision Package + Human Selection
+
+| Stage | Core work | Main output |
 |---|---|---|
-| 1. Goal + Evidence Map | 冻结研究问题、证据范围、矛盾、资源、隐私与停止条件 | Goal–Evidence Map |
-| 2. Multi-strategy Generation | 从机制、反证/判别、边界/迁移等视角提出少量机制差异明确的想法 | Hypothesis Cards |
-| 3. Independent Review | 核查证据绑定、最近工作碰撞、替代解释、可证伪性、可行性及 killer objection | 独立 Review Records |
-| 4. conditional Comparison | 仅在比较会改变修订资源或人类选择时，识别重复、变体与不同机制 | Comparison Record 或明确跳过原因 |
-| 5. Evolution + fresh review | 将一个确切反对意见绑定到实质科学修改，保留父候选，并由非作者重新审查 | Evolution lineage 与 fresh Review |
-| 6. Decision Package + Human Selection | 汇总合格候选、分歧、失败和最低成本判别方案，由研究者完成最终选择 | Decision Package |
+| 1. Goal + Evidence Map | Freeze the question, evidence boundary, contradictions, resources, privacy, and stopping conditions. | Goal–Evidence Map |
+| 2. Multi-strategy Generation | Produce a few candidates that differ in mechanism, not just wording. | Hypothesis Cards |
+| 3. Independent Review | Check evidence use, nearby work, alternatives, falsifiability, feasibility, and killer objections. | Independent Review Records |
+| 4. Conditional Comparison | Compare candidates only when it can change revision effort or human choice. | Comparison Record, or an explicit skip |
+| 5. Evolution + fresh review | Bind a substantive revision to one exact objection and have a non-author review the descendant. | Evolution lineage and fresh Review |
+| 6. Decision Package + Human Selection | Summarize support, objections, uncertainty, failures, and the cheapest next discriminator for the researcher. | Decision Package |
 
-比较不强制形成总排名；没有合格 finalist、证据不足或需要人类价值判断，都是有效结论。
+The workflow does not force a final ranking. No qualified finalist, insufficient evidence, or a
+decision that requires human values are valid outcomes.
 
-## 关键设计原则
+## Design principles
 
-- **证据绑定**：事实、解释、假设、预测和设计选择保持可区分。精确数值、日期、排名及具名来源比较必须绑定支持该具体陈述的来源与位置；搜索摘要、模型记忆和角色共识只作为检索线索。
-- **机制差异**：每个候选围绕一条解释主线，写明最近功能性先例、关键差异、替代解释及能够区分二者的预测。
-- **独立批评**：候选作者不审查自己的候选；Evolution 后的 descendant 由非作者执行完整 fresh Review。这里的独立性是流程中的角色分离，不替代同行评审或实验验证。
-- **反对意见驱动修订**：Evolution 必须回应一个确切的 killer objection，并改变机制、关键假设、预测、反证、边界或判别设计中的科学内容。
-- **有界资源**：候选、并发视角、检索和 Evolution 都保持有限；可选步骤只有在能够改变科学决策时才运行。
-- **人类最终选择**：Supervisor 只整理已准入的事实和审查结果，不在最终综合中增加新的科学权威。
+- **Evidence binding.** Facts, interpretations, hypotheses, predictions, and design choices remain
+  distinct. Exact numbers, dates, rankings, and named-source comparisons must be tied to a source and
+  location that supports that specific statement. Search snippets, memory, and role consensus are
+  discovery leads, not evidence.
+- **Mechanism distinction.** Each candidate states one explanatory line, its nearest functional
+  precedent, the key difference, an alternative explanation, and predictions that could distinguish
+  them.
+- **Independent criticism.** A candidate’s author does not review it. Evolution descendants receive a
+  complete fresh review from a non-author role. This is process separation, not human or statistical
+  independence.
+- **Objection-driven revision.** Evolution must answer one exact killer objection by changing
+  scientific content such as the mechanism, key assumption, prediction, falsifier, boundary, or
+  discriminator.
+- **Bounded resources.** Candidate count, temporary perspectives, retrieval, and Evolution remain
+  finite. Optional work is used only when it can change a scientific decision.
+- **Human control.** The Skill stops at a Decision Package. Code, training, experiments, data
+  collection, external communication, repository changes, and paper writing require separate
+  authorization.
 
-## 安装
+## Installation
 
-克隆仓库，并将完整的 `co-scientist-ideation/` 目录复制到 Skill 根目录。macOS / Linux：
+Copy the complete co-scientist-ideation/ directory into a supported Skill root. Do not copy the
+repository root or the evaluation method into a Skill root.
+
+macOS / Linux:
 
 ```bash
 git clone https://github.com/takeiteasy41/Co-Scientist-Ideation.git
@@ -48,7 +76,7 @@ mkdir -p "$HOME/.agents/skills"
 cp -R Co-Scientist-Ideation/co-scientist-ideation "$HOME/.agents/skills/"
 ```
 
-Windows PowerShell：
+Windows PowerShell:
 
 ```powershell
 git clone https://github.com/takeiteasy41/Co-Scientist-Ideation.git
@@ -56,89 +84,163 @@ New-Item -ItemType Directory -Force "$HOME\.agents\skills" | Out-Null
 Copy-Item -Recurse ".\Co-Scientist-Ideation\co-scientist-ideation" "$HOME\.agents\skills\co-scientist-ideation"
 ```
 
-如果目标位置已有同名 Skill，请先确认或备份现有目录，避免把两个版本合并。也可以将完整目录复制到项目级的 `<project>/.agents/skills/`。目录约定与 Skill 构建说明见 OpenAI 官方的 [Build skills](https://learn.chatgpt.com/docs/build-skills)。
+If the destination already contains a Skill with the same name, confirm or back it up before copying
+so that two packages are not silently merged. For a project-scoped installation, copy the complete
+directory to <project>/.agents/skills/ instead.
 
-## 使用
+The public evaluation method is optional and is not needed for installation or runtime. It is
+documented under [evaluation/public-method](evaluation/public-method/README.md).
 
-在新的 Codex task 中显式提供目标和边界：
+## Usage
 
-    $co-scientist-ideation
+In a new Codex task, invoke the Skill explicitly and provide the scientific decision you need to
+make:
 
-    研究目标：<希望解释、比较或发现什么>
-    证据与检索范围：<已有材料、允许使用的数据库、论文或时间范围>
-    当前科学决策：<这次结果需要帮助你决定什么>
-    Web：<允许检索哪些公开来源，或要求保持离线>
-    隐私：<哪些未发表、专有或敏感信息不得进入查询或外部服务>
-    资源边界：<可用数据、测量、计算、时间、成本与专业能力>
-    期望输出：Decision Package
+```text
+$co-scientist-ideation
 
-信息不足但会影响科学有效性、隐私、授权、成本或范围时，Skill 会先请求必要的人类决定。
+Research goal: <what you want to explain, compare, or discover>
+Evidence and retrieval boundary: <available materials, databases, papers, or time range>
+Current scientific decision: <what this result must help you decide>
+Web: <which public sources may be searched, or whether to stay offline>
+Privacy: <unpublished, proprietary, personal, or sensitive details that must not enter queries>
+Resources: <data, measurements, compute, time, cost, and expertise available>
+Expected output: Decision Package
+```
 
-## 返回内容
+The Skill asks for a human decision first when missing information would change scientific validity,
+privacy, authorization, cost, or scope.
 
-完整结果包括 Goal–Evidence Map、Hypothesis Cards、逐候选独立 Review、必要时的 Comparison、Evolution 父子谱系与 fresh Review，以及：
+## Returned package
 
-- 最强支持、killer objection、替代解释与最近工作状态；
-- 可区分的预测、直接反证、适用边界和失败模式；
-- 最低成本判别设计及关键阈值的证据或设计来源；
-- 被拒绝候选、未解决证据、少数意见和流程限制；
-- 合格 finalist、无排序的人类选择集，或诚实的 no-finalist 结论；
-- 下一项需要研究者决定的事项。
+A complete result can include:
 
-Review 的 `continue` 表示候选目前连贯且值得判别，不表示其已被证明、具有确定新颖性或得到实验验证。
+- Goal–Evidence Map;
+- Hypothesis Cards;
+- independent Review Records for each candidate;
+- a Comparison Record when comparison has decision value;
+- an Evolution parent–descendant lineage and fresh Review;
+- strongest support, killer objection, alternatives, and nearest-work status;
+- discriminating predictions, direct falsifiers, boundaries, and failure modes;
+- a lowest-cost discriminator with source or design provenance for key thresholds;
+- rejected candidates, unresolved evidence, minority views, and process limitations;
+- qualified finalists, an unranked human choice set, or an honest no-finalist result; and
+- the next decision required from the researcher.
 
-## 联网、隐私与执行控制
+In a Review, continue means that a candidate is coherent and worth testing. It does not mean that the
+candidate is proven, novel, experimentally validated, or ready for publication.
 
-联网检索按每次运行的边界处理：只有在获得授权且结果能够改变决策时才检索，并优先打开论文、官方数据、标准、文档或原始仓库等一手来源。公开搜索中的摘要仅用于发现来源；支持、反驳、限制、负结果和未解决证据都会保留。
+## Web, privacy, and execution control
 
-未发表假设、精确私有数值、可识别信息和协作者细节默认不进入 Web 查询；查询使用抽象表述，除非研究者明确授权。未经许可，本地文件和数据不会上传到外部服务。
+Web retrieval is run-scoped. It is used only when authorized and decision-relevant, with preference
+for primary papers, official datasets, standards, documentation, or original repositories. Search
+snippets are discovery aids; support, contradiction, limitations, negative evidence, and unresolved
+claims remain visible after source checking.
 
-Skill 在当前 Codex task 内运行，并止于人类 Decision Package。代码、训练、数据采集、实验、外部通信、仓库修改和论文写作需要另行明确授权。
+Unpublished hypotheses, exact private numbers, identifying information, and collaborator details do
+not enter Web queries by default. Queries use an abstract formulation unless the researcher
+explicitly authorizes more detail. Local files and data are not uploaded to external services without
+permission.
 
-## Package 结构
+Automatic activation is disabled by design. The package keeps
+policy.allow_implicit_invocation: false, so ordinary tasks are unaffected until the researcher types
+$co-scientist-ideation.
 
-- [`co-scientist-ideation/SKILL.md`](co-scientist-ideation/SKILL.md)：入口、触发边界与总体运行契约。
-- [`co-scientist-ideation/agents/openai.yaml`](co-scientist-ideation/agents/openai.yaml)：Skill 展示元数据与显式调用策略。
-- [`references/workflow.md`](co-scientist-ideation/references/workflow.md)：六阶段路由、停止条件和合法出口。
-- [`references/contracts.md`](co-scientist-ideation/references/contracts.md)：科学对象格式、证据准入与 Decision Package 契约。
-- [`references/roles.md`](co-scientist-ideation/references/roles.md)：临时科学视角及独立性边界。
-- [`references/safety.md`](co-scientist-ideation/references/safety.md)：安全、来源、隐私和人类控制。
-- [`references/localization.md`](co-scientist-ideation/references/localization.md)：激活规则与本地适配。
-- [`references/paper-basis.md`](co-scientist-ideation/references/paper-basis.md)：论文依据与 bounded adaptation。
-- `scripts/`：package 校验脚本。
-- `tests/`：行为与结构检查。
+## Package structure
 
-## 测试与评估
+- co-scientist-ideation/SKILL.md: entry point, trigger boundary, and overall contract.
+- co-scientist-ideation/agents/openai.yaml: display metadata and explicit invocation policy.
+- co-scientist-ideation/references/workflow.md: routing, stopping conditions, and valid exits.
+- co-scientist-ideation/references/contracts.md: scientific objects, evidence admission, and
+  Decision Package contract.
+- co-scientist-ideation/references/roles.md: temporary scientific perspectives and independence
+  boundaries.
+- co-scientist-ideation/references/safety.md: source, privacy, safety, and human-control guidance.
+- co-scientist-ideation/references/localization.md: activation and host-local adaptation.
+- co-scientist-ideation/references/paper-basis.md: source basis and bounded adaptation.
+- co-scientist-ideation/scripts/: package validation.
+- co-scientist-ideation/tests/: behavior and structural checks.
 
-我们进行了一组 AI-only、固定任务的探索性配对评估，用于观察本 Skill 在受控条件下的表现。评估包含 4 个任务：2 个系统或形式化任务，以及 2 个非系统任务。每个任务向两个生成臂提供同一组 5 篇更早、已核验的论文，共 20 篇可见论文；每个任务另有 1 篇后发表的隐藏参考论文，共 4 篇，这些论文的身份和内容均不提供给生成臂或主要 reviewer。隐藏参考只在评审锁定后用于非投票式的机制族对照，不参与主要偏好投票。
+## Tests and evaluation
 
-两个生成臂分别为 Co-Scientist 和高质量 Generic prompt。每个任务运行 3 组配对生成，共得到 12 对匿名输出；每对由 3 个 AI reviewer 判断，共 36 个 reviewer decisions。分析以任务为主要单位，4 个任务等权；reviewer decisions 嵌套在 pair 和 task 内，不能当作 36 个独立科学样本。
+We ran a small AI-only, fixed-task exploratory paired evaluation to observe this workflow under a
+controlled evidence envelope. It is provided for context, not as a claim of universal effectiveness.
 
-| 描述性指标 | 结果 |
+### Method
+
+- Four fixed tasks: two systems/formal tasks and two non-systems tasks.
+- Each task supplied five earlier, verified papers to both generation arms: twenty visible papers in
+  total.
+- Each task also had one later hidden reference paper, four hidden references in total. Their
+  identities and contents were withheld from the generation arms and primary reviewers.
+- The hidden references were used only after review lock for a non-voting mechanism-family comparison.
+- The two generation arms were Co-Scientist and a high-quality Generic prompt.
+- Each task had three paired generations, producing twelve anonymous pairs.
+- Each pair had three eligible AI reviewer decisions, producing thirty-six nested decisions.
+- The task was the primary analysis unit, with equal task weight.
+
+### Observed descriptive endpoint
+
+| Quantity | Result |
 |---|---:|
-| 倾向 Co-Scientist 的 reviewer directions | `31/36` |
-| 倾向 Co-Scientist 的 pair majorities | `11/12` |
-| Task-equalized score | `0.861111` |
-| Co-Scientist canonical critical failures | `1` |
-| Generic canonical critical failures | `0` |
-| Co/Generic generation-request ratio | 约 `3.83×` |
-| Co/Generic 平均父任务 wall-time ratio | 约 `1.99×` |
+| Reviewer directions toward Co-Scientist | 31/36 |
+| Pair majorities toward Co-Scientist | 11/12 |
+| Task-equalized score | 0.861111 |
+| Co-Scientist canonical critical failures | 1 |
+| Generic canonical critical failures | 0 |
+| Co/Generic generation-request ratio | approximately 3.83× |
+| Co/Generic mean parent wall-time ratio | approximately 1.99× |
 
-方向性数字整体倾向 Co-Scientist，但结果并不是无条件胜出：一个 Co-Scientist 输出包含实质性的来源使用错误，一个 pair 的多数判断倾向 Generic，因此预先规定的“不出现更多 critical failure”门槛没有通过。最终结果属于 heterogeneous trade-off：在这组任务上观察到更高的匿名评审偏好信号，同时付出了更多调用与时间成本。
+The directional numbers favored Co-Scientist in this panel, but the result was not an unconditional
+win. One Co-Scientist output contained a substantive source-use error, one pair majority favored
+Generic, and the predeclared no-worse-critical-failure gate did not pass. The terminal interpretation
+is a heterogeneous trade-off: a stronger anonymous preference signal in these tasks accompanied
+greater request and time costs.
 
-这些数字来自冻结记录的恢复性复算，不是一次独立复现。隐藏参考论文只代表一种后来实际发表的机制，用于衡量重构或对齐；它不是科学真理、唯一正确答案，也不能证明 de-novo discovery。成本比例是本地记录的描述，不是因果效率或投入产出估计。该评估仅供参考，不支持普遍优越性、人类偏好、确认性有效性、科学真实性、真正新颖性、跨领域泛化或部署 ROI。
+Reviewer choices were nested within pairs and tasks, not thirty-six independent scientific
+replicates. The endpoint is a recovery from frozen records, not an independent replication. A hidden
+reference paper is a historical mechanism used for reconstruction/alignment; it is not scientific
+truth, a unique correct answer, or proof of de-novo discovery. Cost ratios are local descriptive
+records, not causal efficiency or ROI estimates.
 
-方法学背景包括：[MOOSE-Chem](https://arxiv.org/abs/2410.07076) 的后发表论文假设重构范式、[Smit 等对多智能体辩论与强提示基线的比较](https://proceedings.mlr.press/v235/smit24a.html)，以及 [Si、Yang 和 Hashimoto 的领域研究者盲评设计](https://proceedings.iclr.cc/paper_files/paper/2025/hash/ea94957d81b1c1caf87ef5319fa6b467-Abstract-Conference.html)。这些研究用于界定评估方法，不构成对本 Skill 效果的外部验证。
+The evaluation does not establish generic superiority, human preference, confirmatory efficacy,
+scientific truth, true novelty, cross-domain generalization, or deployment ROI. The public evaluation
+method package documents the metric layers, aggregation, schema, deterministic validators, Generic
+capability envelope, and known weaknesses for developer review.
 
-## 科学依据与官方资料
+### Generic capability envelope
 
-本 Skill 借鉴 Co-Scientist 论文中的科学功能，并将其适配为当前 Codex task 内可执行的 bounded workflow：
+The retained Generic prompts declared and restricted the research capability envelope to:
 
-- Gottweis 等，[Accelerating scientific discovery with Co-Scientist](https://www.nature.com/articles/s41586-026-10644-y)，*Nature*，DOI `10.1038/s41586-026-10644-y`
-- [Supplementary Information](https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-026-10644-y/MediaObjects/41586_2026_10644_MOESM1_ESM.pdf)
-- Google Research：[Accelerating scientific breakthroughs with an AI co-scientist](https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/)
-- OpenAI：[Build skills](https://learn.chatgpt.com/docs/build-skills) 与 [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+- research-ideation — no authoritative upstream GitHub source was confirmed for the exact local Skill,
+  so no download link is provided;
+- [hypothesis-generation](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/hypothesis-generation);
+- [scientific-brainstorming](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/scientific-brainstorming);
+- [literature-review](https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/literature-review); and
+- a host-bundled read-only PDF capability for the supplied paper packet.
 
-## 许可证
+The Generic arm was also constrained to no network retrieval, no project writes, and no subagents.
+These are evaluation-run controls, not a global restriction on this Skill’s authorized, run-scoped
+Web retrieval. The retained runtime receipts do not record a positive per-request list of Skill
+invocations, so the evaluation should not be read as proof that every request used every named Skill.
 
-除另有说明外，本仓库中由仓库所有者提供的原创内容采用 [Apache License 2.0](LICENSE)。第三方论文、链接资料及未包含在本 GitHub 仓库中的本地研究材料不在本许可证的授权范围内。
+## Scientific basis and official references
+
+This Skill adapts scientific functions described in the Co-Scientist work into a bounded, task-local
+workflow:
+
+- Gottweis et al., [Accelerating scientific discovery with Co-Scientist](https://www.nature.com/articles/s41586-026-10644-y),
+  Nature, DOI 10.1038/s41586-026-10644-y.
+- [Supplementary Information](https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-026-10644-y/MediaObjects/41586_2026_10644_MOESM1_ESM.pdf).
+- Google Research, [Accelerating scientific breakthroughs with an AI co-scientist](https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/).
+- OpenAI, [Build skills](https://learn.chatgpt.com/docs/build-skills) and
+  [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+
+Results, architecture, and experimental outcomes from those sources do not automatically transfer to
+this Skill.
+
+## License
+
+Unless otherwise stated, original content supplied by the repository owner is licensed under the
+[Apache License 2.0](LICENSE). Third-party papers, linked resources, and local research materials
+that are not included in this repository remain under their own terms and are not relicensed here.
